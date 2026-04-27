@@ -2,7 +2,18 @@ module functions
     use params
     implicit none
 
-    real(kind=wp1), external :: ddot
+    interface
+        pure function ddot(n, dx, incx, dy, incy)
+            use params, only: wp1
+            implicit none
+            real(kind=wp1) :: ddot
+            integer, intent(in) :: n
+            real(kind=wp1), intent(in) :: dx(*) ! Assumed-size array
+            integer, intent(in) :: incx
+            real(kind=wp1), intent(in) :: dy(*) ! Assumed-size array
+            integer, intent(in) :: incy
+        end function ddot
+    end interface
 
     real(kind=wp1), save :: conversion = rzero
     logical, save :: first = .true.

@@ -2,8 +2,8 @@
 
 This repository contains simulation codes for steady-state transport in a
 scanning tunneling microscope break-junction (STM-BJ) model coupled to
-vibrational and cavity degrees of freedom using a quasiclassical mapping Hamiltonian 
-approach.
+vibrational and cavity degrees of freedom using a quasiclassical mapping 
+Hamiltonian approach.
 
 This Github repo currently includes three methods:
 
