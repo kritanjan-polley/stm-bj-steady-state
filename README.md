@@ -7,11 +7,11 @@ approach.
 
 The codebase currently includes three complementary approaches:
 
-- `semiclassicalMapping/`: Fortran trajectory-based semiclassical mapping
+- `semiclassicalMapping`: Fortran trajectory-based semiclassical mapping
   dynamics.
-- `lindbladMasterEq/`: Julia Lindblad master-equation calculations using
+- `lindbladMasterEq`: Julia Lindblad master-equation calculations using
   `QuantumToolbox.jl`.
-- `HEOMcalculations/`: Julia hierarchical equations of motion (HEOM)
+- `HEOMcalculations`: Julia hierarchical equations of motion (HEOM)
   calculations using `HierarchicalEOM.jl`.
 
 ## Running the Mapping Hamiltonian Codes
@@ -30,4 +30,13 @@ gfortran -cpp -O2 -ffast-math -funroll-loops \
 cd lindbladMasterEq
 cc -dynamiclib -fPIC memory.c -o libmemory.dylib  # macOS
 cc -shared -fPIC memory.c -o libmemory.so # linux
+julia masterSTMBj3.jl
+julia masterBareBJ.jl
+```
+
+## Running the HEOM Code
+
+```bash
+cd HEOMcalculations
+julia HEOMjl.jl
 ```
