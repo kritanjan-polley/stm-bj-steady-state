@@ -5,7 +5,7 @@ scanning tunneling microscope break-junction (STM-BJ) model coupled to
 vibrational and cavity degrees of freedom using a quasiclassical mapping Hamiltonian 
 approach.
 
-The codebase currently includes three complementary approaches:
+This Github repo currently includes three methods:
 
 - `semiclassicalMapping`: Fortran trajectory-based semiclassical mapping
   dynamics.

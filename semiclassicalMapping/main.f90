@@ -3,8 +3,18 @@ program main
     use functions
     use propagator
     use initial
+    use iso_c_binding
     implicit none
 
+    interface
+        function get_peak_memory_bytes() bind(c, name="get_peak_memory_bytes")
+            import c_long_long
+            integer(c_long_long) :: get_peak_memory_bytes
+        end function get_peak_memory_bytes
+    end interface
+
+    integer(c_long_long) :: peak_bytes
+    real :: peak_mb
     type(system_state) :: current_state
 
     real(kind=wp1) :: ek(glevel, nel)
@@ -137,6 +147,14 @@ program main
             write(13, *)
         end do
         close(13)
+    end if
+
+    peak_bytes = get_peak_memory_bytes()
+    if (peak_bytes > 0) then
+        peak_mb = real(peak_bytes) / (1024.0 * 1024.0)
+        write(*, '(a,2x,f8.2,2x,a)') "Peak memory usage:", peak_mb, "MB"
+    else
+        call print_banner("Could not determine peak memory usage.")
     end if
 
     call get_walltime(end_time)
