@@ -15,7 +15,7 @@ module propagator
         real(kind=wp1) :: q, p, qt, pt, qc, pc
     end type system_state
 
-    real(kind=wp1), save :: lamda = one, mu_left = one, mus(nel) = [-one, one]
+    real(kind=wp1), save :: lamda = 0.2_wp1, mu_left = one, mus(nel) = [-one, one]
 
     contains
 
