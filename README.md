@@ -20,7 +20,7 @@ This Github repo currently includes three methods:
 cd semiclassicalMapping
 gfortran -cpp -O2 -ffast-math -funroll-loops \
     params.f90 functions.f90 propagator.f90 \
-    initial.f90 main.f90 ../lindbladMasterEq/memory.c -framework Accelarate
+    initial.f90 main.f90 ../lindbladMasterEq/memory.c -framework Accelerate
 ```
 
 
