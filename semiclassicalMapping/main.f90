@@ -27,6 +27,7 @@ program main
     real(kind=wp1) :: curr(nel)
     integer :: i, j, int64_number
     real(kind=wp1) :: start_time, end_time
+    logical :: if_check_qc
 
     call get_walltime(start_time)
     population = rzero; current = rzero; photon_number = rzero
@@ -36,6 +37,8 @@ program main
     call get_eks(ek)
     call get_tgs(tgs, ek)
     call print_params()
+
+    if_check_qc = .true.
 
     call get_walltime(end_time)
     write(*,'(a,2x,f10.4,2x,a)') 'Starting loop propagation after', end_time - start_time, 'seconds'

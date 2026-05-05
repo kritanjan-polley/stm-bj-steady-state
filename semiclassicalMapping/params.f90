@@ -1,6 +1,6 @@
 module params
-    implicit none
     use iso_fortran_env, only : real64, real32
+    implicit none
     ! integer, parameter :: wp1 = selected_real_kind(15,37)
     integer, parameter :: wp1 = real64 !! selected_real_kind(15,37)
 
