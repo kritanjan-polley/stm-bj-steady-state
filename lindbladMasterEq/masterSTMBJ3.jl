@@ -3,10 +3,9 @@ using LinearAlgebra
 using Printf
 
 get_peak_memory() = @printf("Memory usage: %.5f GB\n", Sys.maxrss()/1024^3)
-
+const start_time::Float64 = time()
 
 function main(;mu_R_val::Float64 = 3.0, lambda_cav_val::Float64 = 0.1, set_name="SetII")
-    start_time = time()
     get_peak_memory()
 
     delta = 1.0
