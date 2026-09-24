@@ -64,7 +64,6 @@ function Makie.plot!(p::CurvedArrow)
 
     points = lift(p, scene.camera.projectionview, p.model, Makie.transform_func(p),
           scene.viewport, p[1], p[2]) do _, _, _, _, p1, p2
-
         return Makie.project.(Ref(scene), (p1, p2))
     end
 
@@ -77,9 +76,7 @@ function Makie.plot!(p::CurvedArrow)
     end
 
     path = lift(arc) do arc
-        BezierPath([
-            MoveTo(points[][1]), arc,
-        ])
+        BezierPath([MoveTo(points[][1]), arc,])
     end
 
     trimarker = BezierPath([MoveTo(0, 0), LineTo(0.5, -1), LineTo(-0.5, -1), ClosePath()])
@@ -191,9 +188,7 @@ function plot_electrode_diagram!(ax; levels=(-1.0, 1.0), voltage=2.0, lw=6,
 
         for current_target_idx in target_indices
             lvl = levels[current_target_idx]
-
             line_mid = mean(([X...] .* 0.4) .+ x_offsets[current_target_idx])
-
             p_start = Point2f(x, mu)
             p_end   = Point2f(line_mid, lvl)
 
