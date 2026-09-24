@@ -1,47 +1,7 @@
 using HierarchicalEOM
 using Printf
 
-struct PROCESS_MEMORY_COUNTERS
-    cb::UInt32
-    PageFaultCount::UInt32
-    PeakWorkingSetSize::UInt
-    WorkingSetSize::UInt
-    QuotaPeakPagedPoolUsage::UInt
-    QuotaPagedPoolUsage::UInt
-    QuotaPeakNonPagedPoolUsage::UInt
-    QuotaNonPagedPoolUsage::UInt
-    PagefileUsage::UInt
-    PeakPagefileUsage::UInt
-end
-
-function get_peak_memory_bytes()::Int64
-    if Sys.islinux() || Sys.isapple()
-        rusage = zeros(Int64, 18)
-        ret = ccall(:getrusage, Int32, (Int32, Ptr{Cvoid}), 0, rusage)
-
-        if ret == 0
-            # rusage[1-2] = utime, rusage[3-4] = stime, rusage[5] = maxrss
-            multiplier = Sys.islinux() ? 1024 : 1
-            return rusage[5] * multiplier
-        end
-
-    elseif Sys.iswindows()
-        hProcess = ccall(:GetCurrentProcess, Ptr{Cvoid}, ())
-
-        mem_counters = Ref(PROCESS_MEMORY_COUNTERS(0,0,0,0,0,0,0,0,0,0))
-        cb = sizeof(PROCESS_MEMORY_COUNTERS)
-
-        ret = ccall((:GetProcessMemoryInfo, "psapi"), Int32,
-                    (Ptr{Cvoid}, Ptr{PROCESS_MEMORY_COUNTERS}, UInt32),
-                    hProcess, mem_counters, cb)
-
-        if ret != 0
-            return Int64(mem_counters[].PeakWorkingSetSize)
-        end
-    end
-
-    return -1
-end
+get_peak_memory() = Sys.maxrss()/1024^3
 
 start_time = time()
 println("Initial Peak: $(get_peak_memory_bytes() / (1024^3)) GB")
