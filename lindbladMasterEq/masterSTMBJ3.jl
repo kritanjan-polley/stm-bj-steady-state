@@ -2,20 +2,8 @@ using QuantumToolbox
 using LinearAlgebra
 using Printf
 
-const lib_ext = Sys.iswindows() ? ".dll" : Sys.isapple() ? ".dylib" : ".so"
-const lib_path = joinpath(@__DIR__, "libmemory" * lib_ext)
-function get_peak_memory()
-    try
-        bytes = ccall((:get_peak_memory_bytes, lib_path), Clonglong, ())
-        if bytes != -1
-            @printf("Peak memory usage: %.4f GB\n", bytes / (1024^3))
-        else
-            println("Failed to retrieve memory usage.")
-        end
-    catch e
-        println("Memory tracking library not found or failed. Skipping memory check.")
-    end
-end
+get_peak_memory() = @printf("Memory usage: %.5f GB\n", Sys.maxrss()/1024^3)
+
 
 function main(;mu_R_val::Float64 = 3.0, lambda_cav_val::Float64 = 0.1, set_name="SetII")
     start_time = time()
