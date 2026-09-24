@@ -1,18 +1,12 @@
 # STM-BJ Steady-State Simulations
 
-This repository contains simulation codes for steady-state transport in a
-scanning tunneling microscope break-junction (STM-BJ) model coupled to
-vibrational and cavity degrees of freedom using a quasiclassical mapping 
-Hamiltonian approach.
+This repository contains simulation codes for steady-state transport in a scanning tunneling microscope break-junction (STM-BJ) model coupled to vibrational and cavity degrees of freedom using a quasiclassical mapping Hamiltonian approach.
 
 This Github repo currently includes three methods:
 
-- `semiclassicalMapping`: Fortran trajectory-based semiclassical mapping
-  dynamics.
-- `lindbladMasterEq`: Julia Lindblad master-equation calculations using
-  `QuantumToolbox.jl`.
-- `HEOMcalculations`: Julia hierarchical equations of motion (HEOM)
-  calculations using `HierarchicalEOM.jl`.
+- `semiclassicalMapping`:  Trajectory-based semiclassical mapping dynamics.
+- `lindbladMasterEq`: Lindblad master-equation calculations using `QuantumToolbox.jl`.
+- `HEOMcalculations`:  Hierarchical equations of motion (HEOM) calculations using `HierarchicalEOM.jl`.
 
 ## Running the Mapping Hamiltonian Codes
 
