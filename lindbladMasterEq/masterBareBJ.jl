@@ -2,23 +2,10 @@ using QuantumToolbox
 using LinearAlgebra
 using Printf
 
-const lib_ext = Sys.iswindows() ? ".dll" : Sys.isapple() ? ".dylib" : ".so"
-const lib_path = joinpath(@__DIR__, "libmemory" * lib_ext)
-function get_peak_memory()
-    try
-        bytes = ccall((:get_peak_memory_bytes, lib_path), Clonglong, ())
-        if bytes != -1
-            @printf("Peak memory usage: %.4f GB\n", bytes / (1024^3))
-        else
-            println("Failed to retrieve memory usage.")
-        end
-    catch e
-        println("Memory tracking library not found or failed. Skipping memory check.")
-    end
-end
+get_peak_memory() = @printf("Memory usage: %.5f GB\n", Sys.maxrss()/1024^3)
+const start_time::Float64 = time()
 
 function main(;mu_R_val::Float64 = 3.0, lambda_cav_val::Float64 = 0.1, set_name="SetII")
-    start_time = time()
     get_peak_memory()
 
     delta = 1.0
@@ -122,7 +109,6 @@ function main(;mu_R_val::Float64 = 3.0, lambda_cav_val::Float64 = 0.1, set_name=
     close(f)
 
     get_peak_memory()
-    @printf("It took %.5f seconds\n", time()-start_time)
 end
 
 muR = length(ARGS) >= 1 ? parse(Float64, ARGS[1]) : 3.0
@@ -137,7 +123,11 @@ sets = ["SetI", "SetII", "SetIII"]
 for mu in mus
     for lambda in lambdas
         for set_name in sets
+            @printf("using mu=%.3f, lambda=%.4f, Set=%s, elapsed=%.5f seconds\n",
+                mu, lambda, set_name, time()-start_time)
             main(mu_R_val = mu, lambda_cav_val = lambda, set_name = set_name)
         end
     end
 end
+
+@printf("It took %.5f seconds\n", time()-start_time)
