@@ -1,7 +1,7 @@
 using HierarchicalEOM
 using Printf
 
-get_peak_memory() = Sys.maxrss()/1024^3
+get_peak_memory() = Sys.maxrss()/(1024^3)
 
 start_time = time()
 println("Initial Peak: $(get_peak_memory_bytes() / (1024^3)) GB")
